@@ -1,0 +1,348 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+
+const projects = [
+  {
+    title: "Remote File Manager",
+    description: "Secure SSH file operations with 30+ API endpoints, real-time monitoring using WebSockets and TanStack Query, glassmorphism UI with dark/light themes. Reduced server management time by 60%.",
+    technologies: [
+      // Languages
+      "JavaScript", "TypeScript",
+      // Frontend
+      "Next.js", "React", "Tailwind CSS", "TanStack Query",
+      // Backend
+      "Node.js", "Express.js", "REST", "WebSockets", "JWT",
+      // Tools
+      "SSH2", "Docker", "Git", "Linux OS"
+    ],
+    github: "https://github.com/4bd4ll4h/remote-file-manager",
+    live: null,
+    featured: true,
+    icon: "🔗"
+  },
+  {
+    title: "NavTube Android App (Beta)",
+    description: "Content discovery app helping users explore beyond their usual circle. Modern Google Material guidelines implementation with coroutines and MVVM architecture.",
+    technologies: ["Kotlin", "Android Jetpack", "MVVM", "Material Design", "Coroutines", "SQLite"],
+    github: "https://github.com/4bd4ll4h/navTube",
+    live: null,
+    featured: true,
+    icon: "📱"
+  },
+  {
+    title: "API Based Telegram Message Sender",
+    description: "Self-hosted Telegram API solution for phone-based messaging. PBKDF2-HMAC encrypted session storage with Docker deployment reducing setup time by 80%.",
+    technologies: [
+      "Python", "JavaScript",
+      "Flask", "React", "REST",
+      "Telethon", "PostgreSQL",
+      "PBKDF2-HMAC", "JWT", "Docker", "Git"
+    ],
+    github: "https://github.com/4bd4ll4h/telesender",
+    live: null,
+    featured: true,
+    icon: "📨"
+  },
+  {
+    title: "AI Powered Educational Telegram Bot",
+    description: "Natural language course material access with custom Moodle API synchronization. Achieved 87.5% user satisfaction and 94% adoption rate.",
+    technologies: ["Python", "Custom NLP", "Google GenAI", "OpenAI", "REST"],
+    github: "https://github.com/skulebot/",
+    live: null,
+    featured: true,
+    icon: "🤖"
+  },
+  {
+    title: "Disciplined Android App",
+    description: "Productivity app with task organization, multiple notification and alarm features. Achieved 100+ downloads in 3 days with 4-5 star rating.",
+    technologies: ["Java", "Android SDK", "MVC"],
+    github: null,
+    live: "https://play.google.com/store/apps/details?id=com.abd4ll4h.disciplined",
+    featured: false,
+    icon: "✅"
+  },
+  {
+    title: "Poetry Library - Java Web API",
+    description: "Access to 1.6M+ Arabic poetry bars with team leadership and database design. Advanced filtering capabilities for comprehensive poetry search.",
+    technologies: ["Java", "Spring", "Hibernate", "GraphQL", "MySQL", "REST"],
+    github: "https://github.com/4bd4ll4h/poetryLibrary",
+    live: null,
+    featured: false,
+    icon: "📚"
+  },
+  {
+    title: "TDES Python Package",
+    description: "Triple DES encryption/decryption tool with bulk directory processing capabilities. Achieved 1K+ downloads on PyPI.",
+    technologies: ["Python", "CLI", "Cryptography", "Agile"],
+    github: null,
+    live: "https://pypi.org/project/tdes/",
+    featured: false,
+    icon: "🔐"
+  },
+  {
+    title: "Android COVID-19 Tracker",
+    description: "Real-time global statistics with home screen widget integration and Jetpack components implementation.",
+    technologies: ["Java", "Android SDK", "Retrofit", "Material Design", "MVVM"],
+    github: "https://github.com/4bd4ll4h/covid19-statistics-android-app",
+    live: null,
+    featured: false,
+    icon: "🦠"
+  }
+];
+
+const allTags = Array.from(new Set(projects.flatMap((p) => p.technologies))).sort((a, b) => a.localeCompare(b));
+
+function slugify(tag) {
+  return tag.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+---
+
+<Layout title="Projects - Abdallah Abdelmahmoud" description="Portfolio of projects by Abdallah Abdelmahmoud, featuring AI-powered applications, mobile development, and full-stack solutions.">
+  <Navigation />
+  
+  <!-- Hero Section (match home: white/light, black/dark) -->
+  <section class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl sm:text-5xl font-display font-bold text-black dark:text-white mb-6 animate-fade-in">
+        My Projects
+      </h1>
+      <p class="text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed animate-slide-up">
+        A collection of AI-powered applications, mobile development, and full-stack solutions that showcase my technical expertise.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section class="px-4 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950">
+    <div class="max-w-7xl mx-auto py-6">
+      <div class="flex flex-wrap items-center gap-3">
+        <button id="filter-all" class="px-3 py-2 rounded-md text-sm font-medium bg-black/5 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/5 dark:border-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors">
+          All
+        </button>
+        {allTags.map((tag) => (
+          <button 
+            class="filter-chip px-3 py-2 rounded-md text-sm font-medium bg-black/5 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/5 dark:border-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors"
+            data-tag={slugify(tag)}
+            aria-pressed="false"
+          >
+            {tag}
+          </button>
+        ))}
+        <span id="filter-count" class="ml-auto text-sm text-neutral-600 dark:text-neutral-400"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects (match home: neutral-50 / neutral-950) -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-display font-bold text-black dark:text-white mb-12 text-center animate-slide-up">
+        Featured Projects
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.filter(p => p.featured).map((project, index) => (
+          <div 
+            class="project-card group bg-white dark:bg-neutral-900 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden animate-scale-in hover:-translate-y-2 border border-black/5 dark:border-neutral-800"
+            style={`animation-delay: ${index * 0.1}s`}
+            data-tags={project.technologies.map(slugify).join('|')}
+          >
+            <!-- Project Header -->
+            <div class="p-6 border-b border-black/10 dark:border-neutral-800">
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-3xl">{project.icon}</div>
+                <div class="flex space-x-2">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="p-2 bg-black/5 dark:bg-neutral-800 rounded-lg hover:bg-primary/10 text-neutral-700 dark:text-neutral-400 hover:text-primary transition-colors"
+                      aria-label="View on GitHub"
+                    >
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="p-2 bg-black/5 dark:bg-neutral-800 rounded-lg hover:bg-primary/10 text-neutral-700 dark:text-neutral-400 hover:text-primary transition-colors"
+                      aria-label="View live"
+                    >
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+              <h3 class="text-xl font-semibold text-black dark:text-white mb-2 group-hover:text-primary transition-colors">
+                {project.title}
+              </h3>
+            </div>
+            
+            <!-- Project Content -->
+            <div class="p-6">
+              <p class="text-neutral-700 dark:text-neutral-300 mb-6 leading-relaxed">
+                {project.description}
+              </p>
+              
+              <!-- Technologies -->
+              <div class="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span class="px-3 py-1 bg-black/5 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-sm rounded-full border border-black/5 dark:border-neutral-700">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- All Projects (match home: white/dark black) -->
+  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-3xl font-display font-bold text-black dark:text-white mb-12 text-center animate-slide-up">
+        All Projects
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project, index) => (
+          <div 
+            class="project-card group bg-white dark:bg-neutral-900 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden animate-scale-in hover:-translate-y-1 border border-black/5 dark:border-neutral-800"
+            style={`animation-delay: ${index * 0.05}s`}
+            data-tags={project.technologies.map(slugify).join('|')}
+          >
+            <!-- Project Header -->
+            <div class="p-6 border-b border-black/10 dark:border-neutral-800">
+              <div class="flex items-center justify-between mb-4">
+                <div class="text-2xl">{project.icon}</div>
+                <div class="flex space-x-2">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="p-2 bg-black/5 dark:bg-neutral-800 rounded-lg hover:bg-primary/10 text-neutral-700 dark:text-neutral-400 hover:text-primary transition-colors"
+                      aria-label="View on GitHub"
+                    >
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="p-2 bg-black/5 dark:bg-neutral-800 rounded-lg hover:bg-primary/10 text-neutral-700 dark:text-neutral-400 hover:text-primary transition-colors"
+                      aria-label="View live"
+                    >
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+              <h3 class="text-lg font-semibold text-black dark:text-white mb-2 group-hover:text-primary transition-colors">
+                {project.title}
+              </h3>
+            </div>
+            
+            <!-- Project Content -->
+            <div class="p-6">
+              <p class="text-neutral-700 dark:text-neutral-300 mb-6 leading-relaxed text-sm">
+                {project.description}
+              </p>
+              
+              <!-- Technologies -->
+              <div class="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span class="px-2 py-1 bg-black/5 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-xs rounded-full border border-black/5 dark:border-neutral-700">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  const chips = Array.from(document.querySelectorAll('.filter-chip'));
+  const allBtn = document.getElementById('filter-all');
+  const cards = Array.from(document.querySelectorAll('.project-card'));
+  const countEl = document.getElementById('filter-count');
+  const selected = new Set();
+
+  function updateCount(visible) {
+    if (countEl) countEl.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
+  }
+
+  function applyFilters() {
+    let visible = 0;
+    cards.forEach((card) => {
+      const tags = (card.getAttribute('data-tags') || '').split('|');
+      if (selected.size === 0) {
+        card.classList.remove('hidden');
+        visible += 1;
+        return;
+      }
+      const match = tags.some((t) => selected.has(t));
+      if (match) {
+        card.classList.remove('hidden');
+        visible += 1;
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    updateCount(visible);
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const tag = chip.getAttribute('data-tag');
+      if (!tag) return;
+      const isActive = chip.getAttribute('aria-pressed') === 'true';
+      if (isActive) {
+        chip.setAttribute('aria-pressed', 'false');
+        chip.classList.remove('bg-primary/10','text-primary');
+        selected.delete(tag);
+      } else {
+        chip.setAttribute('aria-pressed', 'true');
+        chip.classList.add('bg-primary/10','text-primary');
+        selected.add(tag);
+      }
+      allBtn?.classList.remove('bg-primary/10','text-primary');
+      applyFilters();
+    });
+  });
+
+  allBtn?.addEventListener('click', () => {
+    selected.clear();
+    chips.forEach((chip) => {
+      chip.setAttribute('aria-pressed', 'false');
+      chip.classList.remove('bg-primary/10','text-primary');
+    });
+    allBtn.classList.add('bg-primary/10','text-primary');
+    applyFilters();
+  });
+
+  // Initialize
+  allBtn?.classList.add('bg-primary/10','text-primary');
+  applyFilters();
+</script>

@@ -1,0 +1,363 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+
+const stats = [
+	{ number: '6+', label: 'Years Experience' },
+	{ number: '10+', label: 'Projects Completed' },
+	{ number: 'AI', label: 'Integration Specialist' },
+	{ number: 'UX', label: 'Focused Development' },
+];
+
+const techIconMap = {
+	// Languages
+	"JavaScript": "devicon-javascript-plain",
+	"TypeScript": "devicon-typescript-plain",
+	"Python": "devicon-python-plain",
+	"Java": "devicon-java-plain",
+	"Kotlin": "devicon-kotlin-plain",
+	"SQL": "devicon-mysql-plain",
+	"HTML5": "devicon-html5-plain",
+	"CSS3": "devicon-css3-plain",
+	"Bash": "devicon-bash-plain",
+	"GraphQL": "devicon-graphql-plain",
+
+	// Frontend
+	"React": "devicon-react-original",
+	"Next.js": "devicon-nextjs-original",
+	"Tailwind CSS": "devicon-tailwindcss-plain",
+	"Android Jetpack": "devicon-android-plain",
+
+	// Backend
+	"Node.js": "devicon-nodejs-plain",
+	"Express.js": "devicon-express-original",
+	"Flask": "devicon-flask-original",
+	"Spring": "devicon-spring-plain",
+	"Hibernate": "devicon-hibernate-plain",
+
+	// AI
+	"OpenAI": "devicon-openai-plain",
+	"Google GenAI": "devicon-google-plain",
+	"LLaMA": "devicon-pytorch-original",
+	"Custom NLP": "devicon-google-plain",
+
+	// Others
+	"Telethon": "devicon-telegram-plain",
+	"Retrofit": "devicon-android-plain",
+	"SSH2": "devicon-linux-plain",
+	"TanStack Query": "devicon-react-original",
+	"Coroutines": "devicon-android-plain",
+
+	// Databases
+	"PostgreSQL": "devicon-postgresql-plain",
+	"MySQL": "devicon-mysql-plain",
+	"SQLite": "devicon-sqlite-plain",
+	"MongoDB": "devicon-mongodb-plain",
+	"Microsoft Access": "devicon-windows8-original",
+
+	// Tools & Platforms
+	"Git": "devicon-git-plain",
+	"GitHub": "devicon-github-original",
+	"Docker": "devicon-docker-plain",
+	"Docker Compose": "devicon-docker-plain",
+	"Figma": "devicon-figma-plain",
+	"IntelliJ IDEA": "devicon-intellij-plain",
+	"VS Code": "devicon-vscode-plain",
+	"Notion": "devicon-notion-plain",
+	"Linux OS": "devicon-linux-plain",
+
+	// Principles
+	"REST": "devicon-fastapi-plain",
+	"MVC": "devicon-java-plain",
+	"MVVM": "devicon-android-plain",
+	"MVP": "devicon-android-plain",
+	"PBKDF2-HMAC": "devicon-python-plain",
+	"JWT": "devicon-nodejs-plain",
+	"Zero-persistence": "devicon-docker-plain",
+	"WebSockets": "devicon-nodejs-plain",
+	"AI integration": "devicon-openai-plain",
+	"Agile": "devicon-scrumalliance-plain",
+};
+
+const techStack = [
+	{
+		category: "Programming Languages",
+		technologies: [
+			"JavaScript", "TypeScript", "Python", "Java", "Kotlin", "SQL", "HTML5", "CSS3", "GraphQL", "Bash"
+		]
+	},
+	{
+		category: "Frontend Frameworks",
+		technologies: ["React", "Next.js", "Tailwind CSS", "Android Jetpack"]
+	},
+	{
+		category: "Backend Frameworks",
+		technologies: ["Node.js", "Express.js", "Flask", "Spring", "Hibernate"]
+	},
+	{
+		category: "AI & NLP",
+		technologies: ["OpenAI", "Google GenAI", "LLaMA", "Custom NLP"]
+	},
+	{
+		category: "Other Libraries",
+		technologies: ["Telethon", "Retrofit", "SSH2", "TanStack Query", "Coroutines"]
+	},
+	{
+		category: "Databases",
+		technologies: ["PostgreSQL", "MySQL", "SQLite", "MongoDB", "Microsoft Access"]
+	},
+	{
+		category: "Tools & Platforms",
+		technologies: [
+			"Git", "GitHub", "Docker", "Docker Compose", "Figma", "IntelliJ IDEA", "VS Code", "Notion", "Linux OS"
+		]
+	},
+	{
+		category: "Architectures & Principles",
+		technologies: [
+			"REST", "GraphQL", "MVC", "MVVM", "MVP", "PBKDF2-HMAC", "JWT", "Zero-persistence", "WebSockets", "AI integration", "Agile"
+		]
+	}
+];
+
+const whatIBring = [
+	{
+		title: "Full Stack Development",
+		description: "End-to-end development from backend architecture to frontend interfaces",
+		icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`
+	},
+	{
+		title: "AI Integration",
+		description: "Seamless integration of AI technologies into applications",
+		icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>`
+	},
+	{
+		title: "UX-Focused",
+		description: "Human-centered design principles for intuitive user experiences",
+		icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>`
+	}
+];
+---
+
+<Layout title="Abdallah Abdelmahmoud - Software Engineer ">
+	<Navigation />
+	
+	<!-- Hero Section -->
+	<section class="min-h-screen flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
+		<div class="max-w-7xl mx-auto w-full">
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+				<!-- Left Content -->
+				<div class="space-y-4 lg:col-span-2 text-center">
+					<h1 class="text-xl sm:text-xl lg:text-3xl font-fun font-bold text-black dark:text-white leading-tight">
+						$ echo "Hi, this is Abdallah a <span class="text-xl lg:text-3xl font-fun font-medium text-primary">Software Engineer</span>"
+					</h1>
+				</div>
+				<div class="space-y-8 animate-fade-in">
+					
+					<!-- Catch phrase: Solution Coder with complement text between -->
+					<div class="space-y-1 text-center">
+						<div class="my-0 text-6xl lg:text-7xl font-tall text-primary tracking-[0.2em] leading-none">
+							Solution
+						</div>
+						<p class="my-0 text-neutral-700 dark:text-neutral-300 max-w-xl mx-auto italic tracking-[0.12em]">
+							— Thinks in systems, ships in code —
+						</p>
+						<div class="my-0 text-6xl lg:text-7xl font-tall text-primary tracking-[0.2em] leading-none">
+							Engineer
+						</div>
+					</div>
+
+					<div class="flex flex-col sm:flex-row gap-4 justify-center">
+						<a
+							href="/projects"
+							class="inline-flex items-center justify-center px-6 py-3 bg-primary/10 hover:bg-primary/15 text-black dark:text-white font-medium rounded-lg transition-colors duration-200 border border-black/5 dark:border-white/10"
+						>
+							View Projects
+							<svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+							</svg>
+						</a>
+						<a
+							href="/about"
+							class="inline-flex items-center justify-center px-6 py-3 border-2 border-black/10 dark:border-white/15 text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 font-medium rounded-lg transition-colors duration-200"
+						>
+							Get In Touch
+							<svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+							</svg>
+						</a>
+					</div>
+				</div>
+				
+				<!-- Right Content - Terminal Typing -->
+				<div class="relative">
+					<div class="bg-white dark:bg-neutral-900 border border-black/10 dark:border-neutral-800 rounded-xl p-6 font-fun text-sm text-neutral-800 dark:text-neutral-200 shadow-2xl">
+						<div class="mb-4 flex items-center space-x-2">
+							<span class="inline-block w-3 h-3 rounded-full bg-red-500"></span>
+							<span class="inline-block w-3 h-3 rounded-full bg-yellow-500"></span>
+							<span class="inline-block w-3 h-3 rounded-full bg-green-500"></span>
+						</div>
+						<div id="terminal-lines" class="space-y-2 min-h-[220px]"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- About Section -->
+	<section class="py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950">
+		<div class="max-w-4xl mx-auto text-center space-y-8">
+			<div class="animate-slide-up">
+				<h2 class="text-3xl sm:text-4xl font-fun font-bold text-black dark:text-white mb-6">
+					About Me
+				</h2>
+				<p class="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
+					Six years of backend architecture and mobile craftsmanship taught me that adaptability is the KEY. My UX background ensures this intelligence feels human, speaking what's in the user's mind.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- What I Bring Section -->
+	<section class="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-neutral-950">
+		<div class="max-w-4xl mx-auto text-center text-black dark:text-white">
+			<h2 class="text-3xl font-fun font-bold mb-8">
+				What I Bring to the Table
+			</h2>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				{whatIBring.map((item, index) => (
+					<div class="space-y-4 animate-scale-in" style={`animation-delay: ${index * 0.2}s`}>
+						<div class="w-16 h-16 bg-black/5 dark:bg-white/10 rounded-lg flex items-center justify-center mx-auto">
+							<Fragment set:html={item.icon} />
+						</div>
+						<h3 class="text-xl font-fun font-semibold">{item.title}</h3>
+						<p class="text-neutral-700 dark:text-white/80">
+							{item.description}
+						</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Stats Section -->
+	<section class="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
+		<div class="max-w-7xl mx-auto">
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+				{stats.map((stat, index) => (
+					<div 
+						class="text-center animate-scale-in"
+						style={`animation-delay: ${index * 0.1}s`}
+					>
+						<div class="text-3xl sm:text-4xl font-display font-bold text-primary mb-2">
+							{stat.number}
+						</div>
+						<div class="text-sm text-neutral-700 dark:text-neutral-400 font-medium">
+							{stat.label}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- Tech Stack Section -->
+	<section class="py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950">
+		<div class="max-w-7xl mx-auto">
+			<div class="text-center mb-12 animate-slide-up">
+				<h2 class="text-3xl sm:text-4xl font-fun font-bold text-black dark:text-white mb-4">
+					Tech Arsenal
+				</h2>
+				<p class="text-lg text-neutral-700 dark:text-neutral-300">
+					My toolkit for building the future
+				</p>
+			</div>
+			
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+				{techStack.map((category, index) => (
+					<div 
+						class="group bg-white dark:bg-neutral-900 border border-black/5 dark:border-neutral-800 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 animate-scale-in hover:-translate-y-2"
+						style={`animation-delay: ${index * 0.1}s`}
+					>
+						<h3 class="text-2xl font-fun font-bold text-black dark:text-white mb-6">
+							{category.category}
+						</h3>
+						<div class="flex flex-wrap gap-3">
+							{category.technologies.map((tech) => (
+								<span class="px-3 py-2 bg-black/5 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-sm rounded-md font-medium border border-black/5 dark:border-neutral-700 group-hover:scale-105 transition-transform duration-200 flex items-center gap-2" title={tech}>
+									<i class={`${techIconMap[tech] ?? 'devicon-plain'} colored text-xl`}></i>
+									{tech}
+								</span>
+							))}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA Section -->
+	<section class="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
+		<div class="max-w-4xl mx-auto text-center text-black dark:text-white">
+			<h2 class="text-3xl sm:text-4xl font-fun font-bold mb-6">
+				Ready to Build Something Amazing?
+			</h2>
+			<p class="text-lg mb-8 text-neutral-700 dark:text-neutral-300">
+				Let's collaborate on your next project and create something extraordinary together.
+			</p>
+			<a
+				href="/about"
+				class="inline-flex items-center justify-center px-8 py-4 bg-primary/10 hover:bg-primary/15 text-black dark:text-white font-semibold rounded-lg transition-colors duration-200 border border-black/5 dark:border-white/10"
+			>
+				Get In Touch
+				<svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+				</svg>
+			</a>
+		</div>
+	</section>
+
+	<Footer />
+</Layout>
+
+<script>
+	// Terminal typing animation that loops
+	const lines = [
+		"$ npm run dev",
+		"> starting server...",
+		"> ready on http://localhost:3000",
+		"$ build: ai + mobile + web",
+	];
+	const container = document.getElementById('terminal-lines');
+	function typeLine(text) {
+		return new Promise<void>((resolve) => {
+			if (!container) { resolve(); return; }
+			const line = document.createElement('div');
+			container.appendChild(line);
+			let i = 0;
+			const cursor = document.createElement('span');
+			cursor.textContent = '▮';
+			cursor.className = 'ml-1 text-green-400 animate-pulse';
+			const interval = setInterval(() => {
+				line.textContent = text.slice(0, i);
+				i += 1;
+				if (i > text.length) {
+					clearInterval(interval);
+					line.appendChild(cursor);
+					resolve();
+				}
+			}, 30);
+		});
+	}
+	async function runLoop() {
+		if (!container) return;
+		container.innerHTML = '';
+		for (const l of lines) {
+			// eslint-disable-next-line no-await-in-loop
+			await typeLine(l);
+		}
+		setTimeout(runLoop, 1200);
+	}
+	runLoop();
+</script>

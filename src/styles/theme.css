@@ -1,0 +1,20 @@
+/* Global theme tokens */
+:root {
+	/* Light mode brand: green-600 (22 163 74) */
+	--color-brand: 22 163 74;
+	/* Light paper-like surfaces */
+	--surface: 250 243 207; /* old paper-ish */
+	--card: 255 252 235;    /* lighter paper */
+	/* Fonts */
+	--font-display: 'Sora', system-ui, sans-serif;
+	--font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Dark mode overrides */
+.dark {
+	/* Dark mode brand: green-400 (74 222 128) */
+	--color-brand: 74 222 128;
+	/* Dark surfaces */
+	--surface: 10 10 10; /* deep near-black */
+	--card: 24 24 24;    /* elevated card */
+}
