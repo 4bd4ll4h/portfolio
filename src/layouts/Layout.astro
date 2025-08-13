@@ -8,6 +8,8 @@ export interface Props {
 
 const { title, description = "Abdallah Abdelmahmoud - Software Engineer  specializing in AI-powered applications and mobile development", image = "/og-image.jpg", canonical } = Astro.props;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
+import "../styles/theme.css";
+import "../styles/global.css";
 ---
 
 <!DOCTYPE html>
@@ -52,10 +54,7 @@ const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
 		<!-- Devicon for tech icons -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css" />
-		<!-- Theme tokens -->
-		<link rel="stylesheet" href="/src/styles/theme.css" />
-		<!-- Tailwind global -->
-		<link rel="stylesheet" href="/src/styles/global.css" />
+		<!-- CSS imported via Astro bundler (theme + Tailwind globals) -->
 		
 		<title>{title}</title>
 	</head>
