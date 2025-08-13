@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LinkedIn Header — Solution Engineer</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Fira+Code:wght@400;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #000000;
+        --primary: #4ADE80; /* green-400 */
+        --text: #ffffff;
+        --muted: rgba(255,255,255,0.72);
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        width: 1584px;
+        height: 396px;
+        background: var(--bg);
+        color: var(--text);
+        overflow: hidden;
+      }
+      .wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Sora', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        /* Subtle grid + vignette */
+        background:
+          radial-gradient(1200px 600px at 50% -200px, rgba(74,222,128,0.14), transparent 60%),
+          linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: auto, 24px 24px, 24px 24px;
+        background-position: center center, center top, left center;
+      }
+      .phrase {
+        text-align: center;
+      }
+      .big {
+        font-family: 'Bebas Neue', system-ui, sans-serif;
+        font-size: 112px;
+        line-height: 0.95;
+        letter-spacing: 0.18em;
+        color: var(--primary);
+        margin: 0;
+        text-shadow:
+          0 0 24px rgba(74,222,128,0.30),
+          0 0 56px rgba(74,222,128,0.20);
+      }
+      .small {
+        font-size: 22px;
+        letter-spacing: 0.12em;
+        font-style: italic;
+        color: var(--muted);
+        margin: 8px 0 10px;
+      }
+      .brand {
+        position: absolute;
+        top: 18px;
+        left: 24px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        opacity: 0.9;
+      }
+      .brand .mark {
+        font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+        color: var(--primary);
+        font-weight: 600;
+      }
+      .brand .name {
+        font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+        color: rgba(255,255,255,0.9);
+        font-size: 16px;
+      }
+      .footer-note {
+        position: absolute;
+        bottom: 18px;
+        right: 24px;
+        font-family: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+        color: rgba(255,255,255,0.6);
+        font-size: 12px;
+        letter-spacing: 0.08em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="brand">
+        <span class="mark">$</span>
+        <span class="name">4bd4ll4h</span>
+      </div>
+
+      <div class="phrase" role="img" aria-label="Solution Engineer — Thinks in systems, ships in code">
+        <p class="big">SOLUTION</p>
+        <p class="small">— Thinks in systems, ships in code —</p>
+        <p class="big">ENGINEER</p>
+      </div>
+
+      <div class="footer-note">ai + mobile + web</div>
+    </div>
+  </body>
+  </html>
+
+
