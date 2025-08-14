@@ -6,7 +6,7 @@ export interface Props {
 	canonical?: string;
 }
 
-const { title, description = "Abdallah Abdelmahmoud - Software Engineer  specializing in AI-powered applications and mobile development", image = "/og-image.jpg", canonical } = Astro.props;
+const { title, description = "A Software Engineer  specializing in AI-powered applications, Web and Mobile development", image = "/og-image.jpg", canonical } = Astro.props;
 const canonicalURL = new URL(canonical ?? Astro.url.pathname, Astro.site);
 import "../styles/theme.css";
 import "../styles/global.css";
@@ -23,12 +23,14 @@ import "../styles/global.css";
 		<meta name="theme-color" content="#000000" />
 		<meta name="generator" content={Astro.generator} />
 		
-		<!-- Early theme init to avoid flicker -->
-		<script>
-			try {
-				var saved = localStorage.getItem('theme');
-				document.documentElement.classList.toggle('dark', saved !== 'light');
-			} catch (e) {}
+		<!-- Block rendering until theme is set -->
+		<script is:inline>
+			// Block rendering to prevent flash
+			(function() {
+				const theme = localStorage.getItem('theme') || 
+					(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+				document.documentElement.classList.toggle('dark', theme === 'dark');
+			})();
 		</script>
 		
 		<!-- Canonical URL -->

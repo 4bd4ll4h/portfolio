@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import { projects } from '../data/projects';
 
 const stats = [
 	{ number: '6+', label: 'Years Experience' },
@@ -179,7 +180,7 @@ const whatIBring = [
 							</svg>
 						</a>
 						<a
-							href="/about"
+							href="/about#about-me"
 							class="inline-flex items-center justify-center px-6 py-3 border-2 border-black/10 dark:border-white/15 text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 font-medium rounded-lg transition-colors duration-200"
 						>
 							Get In Touch
@@ -213,7 +214,7 @@ const whatIBring = [
 					About Me
 				</h2>
 				<p class="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
-					Six years of backend architecture and mobile craftsmanship taught me that adaptability is the KEY. My UX background ensures this intelligence feels human, speaking what's in the user's mind.
+					6+ years of backend architecture and web/mobile development taught me that adaptability is the KEY. My UX background ensures this intelligence feels human, speaking what's in the user's mind.
 				</p>
 			</div>
 		</div>
@@ -239,6 +240,48 @@ const whatIBring = [
 				))}
 			</div>
 		</div>
+	</section>
+
+	<!-- Featured Work Preview -->
+	<section class="py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950">
+		{(() => {
+			const previewTitles = [
+				'Remote File Manager',
+				'NavTube Android App (Beta)',
+				'AI Powered Educational Telegram Bot',
+				'Poetry Library - Java Web API',
+			];
+			const preview = projects.filter(p => previewTitles.includes(p.title));
+			return (
+				<div class="max-w-7xl mx-auto">
+					<div class="flex items-center justify-between mb-8">
+						<h2 class="text-3xl sm:text-4xl font-fun font-bold text-black dark:text-white">Featured Work</h2>
+						<a href="/projects" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary border border-primary/20 hover:bg-primary/15 transition-colors">
+							View all
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+						</a>
+					</div>
+					<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+						{preview.map((project, index) => (
+							<a href="/projects" class="group relative overflow-hidden rounded-2xl border border-black/5 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-6 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+								<div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-primary/10 to-transparent" />
+								<div class="flex items-start justify-between mb-4">
+									<div class="text-3xl">{project.icon}</div>
+									<span class="px-2 py-1 text-xs rounded-full bg-black/5 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-neutral-700">{project.primaryCategory.toUpperCase()}</span>
+								</div>
+								<h3 class="text-lg font-semibold text-black dark:text-white mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
+								<p class="text-sm text-neutral-700 dark:text-neutral-300 line-clamp-3">{project.description}</p>
+								<div class="mt-4 flex flex-wrap gap-2">
+									{project.technologies.slice(0,3).map((tech) => (
+										<span class="px-2 py-1 text-xs rounded-md bg-black/5 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/5 dark:border-neutral-700">{tech}</span>
+									))}
+								</div>
+							</a>
+						))}
+					</div>
+				</div>
+			);
+		})()}
 	</section>
 
 	<!-- Stats Section -->
@@ -307,7 +350,7 @@ const whatIBring = [
 				Let's collaborate on your next project and create something extraordinary together.
 			</p>
 			<a
-				href="/about"
+				href="/about#about-me"
 				class="inline-flex items-center justify-center px-8 py-4 bg-primary/10 hover:bg-primary/15 text-black dark:text-white font-semibold rounded-lg transition-colors duration-200 border border-black/5 dark:border-white/10"
 			>
 				Get In Touch

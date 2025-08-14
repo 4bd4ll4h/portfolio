@@ -2,95 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
-
-const projects = [
-  {
-    title: "Remote File Manager",
-    description: "Secure SSH file operations with 30+ API endpoints, real-time monitoring using WebSockets and TanStack Query, glassmorphism UI with dark/light themes. Reduced server management time by 60%.",
-    technologies: [
-      // Languages
-      "JavaScript", "TypeScript",
-      // Frontend
-      "Next.js", "React", "Tailwind CSS", "TanStack Query",
-      // Backend
-      "Node.js", "Express.js", "REST", "WebSockets", "JWT",
-      // Tools
-      "SSH2", "Docker", "Git", "Linux OS"
-    ],
-    github: "https://github.com/4bd4ll4h/remote-file-manager",
-    live: null,
-    featured: true,
-    icon: "🔗"
-  },
-  {
-    title: "NavTube Android App (Beta)",
-    description: "Content discovery app helping users explore beyond their usual circle. Modern Google Material guidelines implementation with coroutines and MVVM architecture.",
-    technologies: ["Kotlin", "Android Jetpack", "MVVM", "Material Design", "Coroutines", "SQLite"],
-    github: "https://github.com/4bd4ll4h/navTube",
-    live: null,
-    featured: true,
-    icon: "📱"
-  },
-  {
-    title: "API Based Telegram Message Sender",
-    description: "Self-hosted Telegram API solution for phone-based messaging. PBKDF2-HMAC encrypted session storage with Docker deployment reducing setup time by 80%.",
-    technologies: [
-      "Python", "JavaScript",
-      "Flask", "React", "REST",
-      "Telethon", "PostgreSQL",
-      "PBKDF2-HMAC", "JWT", "Docker", "Git"
-    ],
-    github: "https://github.com/4bd4ll4h/telesender",
-    live: null,
-    featured: true,
-    icon: "📨"
-  },
-  {
-    title: "AI Powered Educational Telegram Bot",
-    description: "Natural language course material access with custom Moodle API synchronization. Achieved 87.5% user satisfaction and 94% adoption rate.",
-    technologies: ["Python", "Custom NLP", "Google GenAI", "OpenAI", "REST"],
-    github: "https://github.com/skulebot/",
-    live: null,
-    featured: true,
-    icon: "🤖"
-  },
-  {
-    title: "Disciplined Android App",
-    description: "Productivity app with task organization, multiple notification and alarm features. Achieved 100+ downloads in 3 days with 4-5 star rating.",
-    technologies: ["Java", "Android SDK", "MVC"],
-    github: null,
-    live: "https://play.google.com/store/apps/details?id=com.abd4ll4h.disciplined",
-    featured: false,
-    icon: "✅"
-  },
-  {
-    title: "Poetry Library - Java Web API",
-    description: "Access to 1.6M+ Arabic poetry bars with team leadership and database design. Advanced filtering capabilities for comprehensive poetry search.",
-    technologies: ["Java", "Spring", "Hibernate", "GraphQL", "MySQL", "REST"],
-    github: "https://github.com/4bd4ll4h/poetryLibrary",
-    live: null,
-    featured: false,
-    icon: "📚"
-  },
-  {
-    title: "TDES Python Package",
-    description: "Triple DES encryption/decryption tool with bulk directory processing capabilities. Achieved 1K+ downloads on PyPI.",
-    technologies: ["Python", "CLI", "Cryptography", "Agile"],
-    github: null,
-    live: "https://pypi.org/project/tdes/",
-    featured: false,
-    icon: "🔐"
-  },
-  {
-    title: "Android COVID-19 Tracker",
-    description: "Real-time global statistics with home screen widget integration and Jetpack components implementation.",
-    technologies: ["Java", "Android SDK", "Retrofit", "Material Design", "MVVM"],
-    github: "https://github.com/4bd4ll4h/covid19-statistics-android-app",
-    live: null,
-    featured: false,
-    icon: "🦠"
-  }
-];
+import { projects, primaryCategories } from '../data/projects';
 
 const allTags = Array.from(new Set(projects.flatMap((p) => p.technologies))).sort((a, b) => a.localeCompare(b));
 
@@ -102,113 +14,119 @@ function slugify(tag) {
 <Layout title="Projects - Abdallah Abdelmahmoud" description="Portfolio of projects by Abdallah Abdelmahmoud, featuring AI-powered applications, mobile development, and full-stack solutions.">
   <Navigation />
   
-  <!-- Hero Section (match home: white/light, black/dark) -->
-  <section class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
-    <div class="max-w-4xl mx-auto text-center">
-      <h1 class="text-4xl sm:text-5xl font-display font-bold text-black dark:text-white mb-6 animate-fade-in">
-        My Projects
-      </h1>
-      <p class="text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed animate-slide-up">
-        A collection of AI-powered applications, mobile development, and full-stack solutions that showcase my technical expertise.
-      </p>
-    </div>
-  </section>
+ 
+  <section class="mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 
-  <!-- Filters -->
-  <section class="px-4 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950">
-    <div class="max-w-7xl mx-auto py-6">
-      <div class="flex flex-wrap items-center gap-3">
-        <button id="filter-all" class="px-3 py-2 rounded-md text-sm font-medium bg-black/5 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/5 dark:border-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors">
-          All
-        </button>
-        {allTags.map((tag) => (
-          <button 
-            class="filter-chip px-3 py-2 rounded-md text-sm font-medium bg-black/5 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 border border-black/5 dark:border-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors"
-            data-tag={slugify(tag)}
-            aria-pressed="false"
-          >
-            {tag}
-          </button>
-        ))}
-        <span id="filter-count" class="ml-auto text-sm text-neutral-600 dark:text-neutral-400"></span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Featured Projects (match home: neutral-50 / neutral-950) -->
-  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-neutral-50 dark:bg-neutral-950">
-    <div class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-display font-bold text-black dark:text-white mb-12 text-center animate-slide-up">
-        Featured Projects
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.filter(p => p.featured).map((project, index) => (
-          <div 
-            class="project-card group bg-white dark:bg-neutral-900 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden animate-scale-in hover:-translate-y-2 border border-black/5 dark:border-neutral-800"
-            style={`animation-delay: ${index * 0.1}s`}
-            data-tags={project.technologies.map(slugify).join('|')}
-          >
-            <!-- Project Header -->
-            <div class="p-6 border-b border-black/10 dark:border-neutral-800">
-              <div class="flex items-center justify-between mb-4">
-                <div class="text-3xl">{project.icon}</div>
-                <div class="flex space-x-2">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="p-2 bg-black/5 dark:bg-neutral-800 rounded-lg hover:bg-primary/10 text-neutral-700 dark:text-neutral-400 hover:text-primary transition-colors"
-                      aria-label="View on GitHub"
-                    >
-                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                    </a>
+      <!-- Filter Sections -->
+      <div class="flex flex-col gap-6">
+        <!-- Primary Category Filters -->
+        <div class=p-6">
+          <h4 class="text-lg font-semibold text-black dark:text-white mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+            </svg>
+            Project Categories
+          </h4>
+          <div class="flex lg:flex-row flex-col gap-4 justify-between">
+            <div class="flex flex-wrap gap-3 justify-center">
+              <button 
+                id="filter-all" 
+                class="inline-flex items-center px-4 py-3 rounded-lg text-sm font-medium bg-primary/10 text-primary border-2 border-primary/20 hover:bg-primary/15 transition-all duration-200"
+                aria-pressed="true"
+              >
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                </svg>
+                All
+              </button>
+              {primaryCategories.map((cat) => (
+                <button 
+                  class="primary-chip inline-flex items-center px-4 py-3 rounded-lg text-sm font-medium bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-black/10 dark:border-neutral-700 hover:border-primary/30 hover:bg-primary/5 hover:text-primary transition-all duration-200 flex-shrink-0"
+                  data-primary={cat}
+                  aria-pressed="false"
+                >
+                  {cat === 'web' ? (
+                    <svg class="w-4 h-4 mr-2"  fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" >
+                      <circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                  ) : cat === 'mobile' ? (
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                  ) : cat === 'api' ? (
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                    </svg>
+                  ) : cat === 'bot' ? (
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  ) : cat === 'cli' ? (
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3"/>
+                    </svg>
+                  ) : (
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
                   )}
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="p-2 bg-black/5 dark:bg-neutral-800 rounded-lg hover:bg-primary/10 text-neutral-700 dark:text-neutral-400 hover:text-primary transition-colors"
-                      aria-label="View live"
-                    >
-                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                      </svg>
-                    </a>
-                  )}
-                </div>
-              </div>
-              <h3 class="text-xl font-semibold text-black dark:text-white mb-2 group-hover:text-primary transition-colors">
-                {project.title}
-              </h3>
+                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                </button>
+              ))}
             </div>
-            
-            <!-- Project Content -->
-            <div class="p-6">
-              <p class="text-neutral-700 dark:text-neutral-300 mb-6 leading-relaxed">
-                {project.description}
-              </p>
-              
-              <!-- Technologies -->
-              <div class="flex flex-wrap gap-2">
-                {project.technologies.map((tech) => (
-                  <span class="px-3 py-1 bg-black/5 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 text-sm rounded-full border border-black/5 dark:border-neutral-700">
-                    {tech}
-                  </span>
-                ))}
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div class="flex items-center gap-3">
+                <span id="filter-count" class="inline-flex items-center gap-2 text-sm font-semibold text-neutral-800 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-800 px-4 py-2 rounded-full border border-black/5 dark:border-neutral-700">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                  </svg>
+                  <span>{projects.length} projects</span>
+                </span>
+                <button 
+                  id="clear-all" 
+                  class="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary transition-colors disabled:opacity-50 disabled:cursor-not-allowed px-3 py-1 rounded-md hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                  disabled
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                  </svg>
+                  Clear filters
+                </button>
               </div>
             </div>
           </div>
-        ))}
+          
+          
+        </div>
+
+        <!-- Technology Filters -->
+        <div class="">
+          <h4 class="text-lg font-semibold text-black dark:text-white mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            Technologies
+          </h4>
+          <div class="flex flex-wrap gap-2 justify-center">
+            {allTags.map((tag) => (
+              <button 
+                class="filter-chip inline-flex items-center px-3 py-1.5 rounded-md text-xs font-medium bg-neutral-50 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 border border-black/10 dark:border-neutral-700 hover:border-primary/30 hover:bg-primary/5 hover:text-primary transition-all duration-200 flex-shrink-0"
+                data-tag={slugify(tag)}
+                aria-pressed="false"
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Removed Featured section (moved to Home) -->
+
   <!-- All Projects (match home: white/dark black) -->
-  <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
+  <section class="py-4 px-4 sm:px-6 lg:px-8 bg-white dark:bg-black">
     <div class="max-w-7xl mx-auto">
       <h2 class="text-3xl font-display font-bold text-black dark:text-white mb-12 text-center animate-slide-up">
         All Projects
@@ -219,6 +137,7 @@ function slugify(tag) {
             class="project-card group bg-white dark:bg-neutral-900 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden animate-scale-in hover:-translate-y-1 border border-black/5 dark:border-neutral-800"
             style={`animation-delay: ${index * 0.05}s`}
             data-tags={project.technologies.map(slugify).join('|')}
+            data-primary={project.primaryCategory}
           >
             <!-- Project Header -->
             <div class="p-6 border-b border-black/10 dark:border-neutral-800">
@@ -283,66 +202,145 @@ function slugify(tag) {
 </Layout>
 
 <script>
-  const chips = Array.from(document.querySelectorAll('.filter-chip'));
+  const tagChips = Array.from(document.querySelectorAll('.filter-chip'));
+  const primaryChips = Array.from(document.querySelectorAll('.primary-chip'));
   const allBtn = document.getElementById('filter-all');
+  const clearAllBtn = document.getElementById('clear-all');
   const cards = Array.from(document.querySelectorAll('.project-card'));
   const countEl = document.getElementById('filter-count');
-  const selected = new Set();
+  const selectedTags = new Set<string>();
+  let selectedPrimary: string | null = null;
 
   function updateCount(visible) {
     if (countEl) countEl.textContent = `${visible} project${visible === 1 ? '' : 's'}`;
   }
 
+  function updateClearButton() {
+    const hasActiveFilters = selectedTags.size > 0 || selectedPrimary !== null;
+    if (clearAllBtn) {
+      (clearAllBtn as HTMLButtonElement).disabled = !hasActiveFilters;
+    }
+  }
+
   function applyFilters() {
     let visible = 0;
     cards.forEach((card) => {
-      const tags = (card.getAttribute('data-tags') || '').split('|');
-      if (selected.size === 0) {
+      const tags = (card.getAttribute('data-tags') || '').split('|').filter(Boolean);
+      const cardPrimary = card.getAttribute('data-primary');
+
+      const matchesTags = selectedTags.size === 0 || tags.some((t) => selectedTags.has(t));
+      const matchesPrimary = !selectedPrimary || cardPrimary === selectedPrimary;
+
+      if (matchesTags && matchesPrimary) {
         card.classList.remove('hidden');
-        visible += 1;
-        return;
-      }
-      const match = tags.some((t) => selected.has(t));
-      if (match) {
-        card.classList.remove('hidden');
+        (card as HTMLElement).style.animationDelay = `${visible * 0.05}s`;
         visible += 1;
       } else {
         card.classList.add('hidden');
       }
     });
     updateCount(visible);
+    updateClearButton();
   }
 
-  chips.forEach((chip) => {
+  // Tag chips (multi-select)
+  tagChips.forEach((chip) => {
     chip.addEventListener('click', () => {
       const tag = chip.getAttribute('data-tag');
       if (!tag) return;
       const isActive = chip.getAttribute('aria-pressed') === 'true';
+      
       if (isActive) {
         chip.setAttribute('aria-pressed', 'false');
-        chip.classList.remove('bg-primary/10','text-primary');
-        selected.delete(tag);
+        chip.classList.remove('bg-primary/10', 'text-primary', 'border-primary/30');
+        chip.classList.add('bg-white', 'dark:bg-neutral-800', 'text-neutral-600', 'dark:text-neutral-400');
+        selectedTags.delete(tag);
       } else {
         chip.setAttribute('aria-pressed', 'true');
-        chip.classList.add('bg-primary/10','text-primary');
-        selected.add(tag);
+        chip.classList.remove('bg-white', 'dark:bg-neutral-800', 'text-neutral-600', 'dark:text-neutral-400');
+        chip.classList.add('bg-primary/10', 'text-primary', 'border-primary/30');
+        selectedTags.add(tag);
       }
-      allBtn?.classList.remove('bg-primary/10','text-primary');
+      
+      // Update "All" button state
+      if (selectedTags.size > 0 || selectedPrimary) {
+        allBtn?.classList.remove('bg-primary/10', 'text-primary', 'border-2', 'border-primary/20', 'ring-2', 'ring-primary/20');
+        allBtn?.classList.add('bg-white', 'dark:bg-neutral-800', 'text-neutral-700', 'dark:text-neutral-300', 'border', 'border-black/10', 'dark:border-neutral-700');
+        allBtn?.setAttribute('aria-pressed', 'false');
+      }
+      
       applyFilters();
     });
   });
 
-  allBtn?.addEventListener('click', () => {
-    selected.clear();
-    chips.forEach((chip) => {
-      chip.setAttribute('aria-pressed', 'false');
-      chip.classList.remove('bg-primary/10','text-primary');
+  // Primary chips (single-select)
+  primaryChips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      const value = chip.getAttribute('data-primary');
+      if (!value) return;
+      const isActive = chip.getAttribute('aria-pressed') === 'true';
+
+      // Clear all primary states first
+      primaryChips.forEach((c) => {
+        c.setAttribute('aria-pressed', 'false');
+        c.classList.remove('bg-primary/10', 'text-primary', 'border-primary/30');
+        c.classList.add('bg-white', 'dark:bg-neutral-800', 'text-neutral-700', 'dark:text-neutral-300', 'border-black/10', 'dark:border-neutral-700');
+      });
+
+      if (isActive) {
+        // Deselect
+        selectedPrimary = null;
+      } else {
+        // Select this
+        chip.setAttribute('aria-pressed', 'true');
+        chip.classList.remove('bg-white', 'dark:bg-neutral-800', 'text-neutral-700', 'dark:text-neutral-300', 'border-black/10', 'dark:border-neutral-700');
+        chip.classList.add('bg-primary/10', 'text-primary', 'border-primary/30');
+        selectedPrimary = value;
+      }
+      
+      // Update "All" button state
+      if (selectedTags.size > 0 || selectedPrimary) {
+        allBtn?.classList.remove('bg-primary/10', 'text-primary', 'border-2', 'border-primary/20', 'ring-2', 'ring-primary/20');
+        allBtn?.classList.add('bg-white', 'dark:bg-neutral-800', 'text-neutral-700', 'dark:text-neutral-300', 'border', 'border-black/10', 'dark:border-neutral-700');
+        allBtn?.setAttribute('aria-pressed', 'false');
+      }
+      
+      applyFilters();
     });
-    allBtn.classList.add('bg-primary/10','text-primary');
+  });
+
+  // All button clears everything
+  allBtn?.addEventListener('click', () => {
+    selectedTags.clear();
+    selectedPrimary = null;
+
+    // Reset tag chips
+    tagChips.forEach((chip) => {
+      chip.setAttribute('aria-pressed', 'false');
+      chip.classList.remove('bg-primary/10', 'text-primary', 'border-primary/30');
+      chip.classList.add('bg-white', 'dark:bg-neutral-800', 'text-neutral-600', 'dark:text-neutral-400');
+    });
+    
+    // Reset primary chips
+    primaryChips.forEach((chip) => {
+      chip.setAttribute('aria-pressed', 'false');
+      chip.classList.remove('bg-primary/10', 'text-primary', 'border-primary/30');
+      chip.classList.add('bg-white', 'dark:bg-neutral-800', 'text-neutral-700', 'dark:text-neutral-300');
+    });
+
+    // Set "All" button as active
+    allBtn.classList.remove('bg-white', 'dark:bg-neutral-800', 'text-neutral-700', 'dark:text-neutral-300', 'border', 'border-black/10', 'dark:border-neutral-700');
+    allBtn.classList.add('bg-primary/10', 'text-primary', 'border-2', 'border-primary/20', 'ring-2', 'ring-primary/20');
+    allBtn.setAttribute('aria-pressed', 'true');
+    
     applyFilters();
   });
 
+  // Clear all filters button
+  clearAllBtn?.addEventListener('click', () => {
+    allBtn?.click(); // Trigger the "All" button click
+  });
+
   // Initialize
-  allBtn?.classList.add('bg-primary/10','text-primary');
   applyFilters();
 </script>

@@ -4,7 +4,7 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   integrations: [react(), tailwind()],
-  site: 'https://abdallah-portfolio.com',
+  site: 'https://4bd4ll4h.site',
   base: '/',
   build: {
     assets: 'assets',
